@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>User Profile</h1>
+
+    {% for msg in get_flashed_messages() %}
+    <p>{{ msg }}</p>
+    {% endfor %}
+
+    <p>Username: {{user.username}}</p>
+    <p>First Name: {{user.first_name}}</p>
+    <p>Last Name: {{user.last_name}}</p>
+    <p>Email: {{user.email}}</p>
+
+    {% for feedback in user.feedbacks %}
+    <p>Feedback Title: {{feedback.title}}</p>
+    <p>Feedback Content: {{feedback.content}}</p>
+    <form action = "/feedback/{{feedback.id}}/update"><button>Edit This Feedback</button></form>
+    <form action = "/feedback/{{feedback.id}}/delete"><button>Delete This Feedback</button></form>
+    
+
+    {% endfor %}
+
+
+    {% if session['username'] %}
+
+    <form action = "/users/{{user.username}}/feedback/add">
+        <button>Add Feedback</button>
+    </form>
+
+    <form action = "/logout">
+        <button>Logout</button>
+    </form>
+    <form action = "/users/{{user.username}}/delete">
+        <button>Delete User</button>
+    </form>
+    {% endif %}
+
+</body>
+</html>
